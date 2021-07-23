@@ -1,7 +1,7 @@
 # ussd-builder
 
-[![Build Status](https://travis-ci.org/harmonizerblinks/ussd-builder.svg?branch=master)](https://travis-ci.org/harmonizerblinks/ussd-builder)
-[![Coverage Status](https://coveralls.io/repos/github/harmonizerblinks/ussd-builder/badge.svg?branch=master)](https://coveralls.io/github/harmonizerblinks/ussd-builder?branch=master)
+<!-- [![Build Status](https://travis-ci.org/harmonizerblinks/ussd-builder.svg?branch=master)](https://travis-ci.org/harmonizerblinks/ussd-builder)
+[![Coverage Status](https://coveralls.io/repos/github/harmonizerblinks/ussd-builder/badge.svg?branch=master)](https://coveralls.io/github/harmonizerblinks/ussd-builder?branch=master) -->
 
 
 Easily compose USSD menus in Node.js, compatible with
