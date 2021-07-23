@@ -113,6 +113,7 @@ the  [Africastalking API](https://africastalking.com):
 can be used to store temporary that may be retrieved from different states
 during the session
 - **`serviceCode`**: the USSD code registered with your serviceCode
+- **`operator`**: the end user's phone Number
 - **`phoneNumber`**: the end user's phone Number
 - **`text`**: The raw USSD input. It has the following format ```1*2*4*1```:
 a string containing the input at each hop, separated by the asterisk symbol (```*```).
