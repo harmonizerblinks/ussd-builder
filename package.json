@@ -18,7 +18,10 @@
     "ussd",
     "africastalking",
     "ussd-menu",
-    "hubtel"
+    "hubtel",
+    "emergent",
+    "emergent ussd",
+    "interpay"
   ],
   "author": "Harmony Alabi <harmonizerblinks@gmail.com>",
   "license": "MIT",
