@@ -1,11 +1,11 @@
 # ussd-menu-builder
 
-[![Build Status](https://travis-ci.org/habbes/ussd-menu-builder.svg?branch=master)](https://travis-ci.org/habbes/ussd-menu-builder)
-[![Coverage Status](https://coveralls.io/repos/github/habbes/ussd-menu-builder/badge.svg?branch=master)](https://coveralls.io/github/habbes/ussd-menu-builder?branch=master)
+[![Build Status](https://travis-ci.org/habbes/ussd-menu-builder.svg?branch=master)](https://travis-ci.org/harmonizerblinks/ussd-builder)
+[![Coverage Status](https://coveralls.io/repos/github/habbes/ussd-menu-builder/badge.svg?branch=master)](https://coveralls.io/github/harmonizerblinks/ussd-builder?branch=master)
 
 
 Easily compose USSD menus in Node.js, compatible with
-[Africastalking API](https://africastalking.com) or [Hubtel API](https://developers.hubtel.com/reference#ussd).
+[Africastalking API](https://africastalking.com) or [Hubtel API](https://developers.hubtel.com/reference#ussd)/ or [Emergent](https://simussd.interpayafrica.com).
 
 ## Installation
 
@@ -134,6 +134,7 @@ app.post('/ussd', (req, res) => {
         phoneNumber: req.body.phoneNumber,
         sessionId: req.body.sessionId,
         serviceCode: req.body.serviceCode,
+        Operator: req.body.networkCode || req.body.Operator,
         text: req.body.text
     };
     menu.run(args, resMsg => {
@@ -151,6 +152,7 @@ app.post('/ussd', async (req, res) => {
         phoneNumber: req.body.phoneNumber,
         sessionId: req.body.sessionId,
         serviceCode: req.body.serviceCode,
+        Operator: req.body.networkCode || req.body.Operator,
         text: req.body.text
     };
     let resMsg = await menu.run(args);
@@ -596,7 +598,7 @@ menu.state('someState', {
 
 ## Hubtel Support
 
-As of version 1.1.0, ussd-menu-builder has added support for Hubtel's USSD API by providing the `provider` option when creating the **UssdMenu** object. There are no changes to the way states are defined, and the HTTP request parameters sent by Hubtel are mapped as usual to `menu.args`, and the result of `menu.run` is mapped to the HTTP response object expected by Hubtel (`menu.con` returns a _Type: Respons & `menu.end` returns a Type: Release). The additional HTTP request parameters like Operator, ClientState, and Sequence are not used.
+As of version 1.0.0, ussd-menu-builder has added support for Hubtel's USSD API by providing the `provider` option when creating the **UssdMenu** object. There are no changes to the way states are defined, and the HTTP request parameters sent by Hubtel are mapped as usual to `menu.args`, and the result of `menu.run` is mapped to the HTTP response object expected by Hubtel (`menu.con` returns a _Type: Respons & `menu.end` returns a Type: Release). The additional HTTP request parameters like ClientState, and Sequence are not used.
 
 The key difference with Hubtel is that the service only sends the most recent response message, rather than the full route string. The library handles that using the Sessions feature, which requires that a SessionConfig is defined in order to store the session's full route. This is stored in the key `route`, so if you use that key in your application it could cause issues.
 
