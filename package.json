@@ -1,7 +1,7 @@
 {
-  "name": "ussd-menu-builder",
-  "version": "1.2.0",
-  "description": "Easily compose USSD menus using states, compatible with Africastalking API",
+  "name": "ussd-builder",
+  "version": "1.0.0",
+  "description": "Easily compose USSD menus using states, compatible with Africastalking, Hubtel and Interpay Ussd API",
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/habbes/ussd-menu-builder"
+    "url": "https://github.com/harmonizerblinks/ussd-builder"
   },
   "keywords": [
     "ussd-menu-builder",
@@ -20,12 +20,12 @@
     "ussd-menu",
     "hubtel"
   ],
-  "author": "Habbes <hello@habbes.xyz>",
+  "author": "Harmony Alabi <harmonizerblinks@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/habbes/ussd-menu-builder/issues"
+    "url": "https://github.com/harmonizerblinks/ussd-builder/issues"
   },
-  "homepage": "https://github.com/habbes/ussd-menu-builder",
+  "homepage": "https://github.com/harmonizerblinks/ussd-builder",
   "dependencies": {
     "async": "^2.6.1"
   },
