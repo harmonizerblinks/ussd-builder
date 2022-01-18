@@ -38,16 +38,16 @@ declare class UssdMenu extends EventEmitter {
 
     end(text: string): void;
 
-    getRoute(args: UssdMenu.UssdGatewayArgs | UssdMenu.HubtelArgs | UssdMenu.NaloArgs): Promise<string>;
+    getRoute(args: UssdMenu.UssdGatewayArgs | UssdMenu.HubtelArgs | UssdMenu.NaloArgs | UssdMenu.ArkeselArgs): Promise<string>;
 
     go(state: string): void;
 
     goStart(): void;
 
-    mapArgs(args: UssdMenu.UssdGatewayArgs | UssdMenu.HubtelArgs | UssdMenu.NaloArgs): UssdMenu.UssdGatewayArgs;
+    mapArgs(args: UssdMenu.UssdGatewayArgs | UssdMenu.HubtelArgs | UssdMenu.NaloArgs | UssdMenu.ArkeselArgs): UssdMenu.UssdGatewayArgs;
 
 
-    onResult?(result: string | UssdMenu.HubtelResponse | UssdMenu.NaloResponse): void;
+    onResult?(result: string | UssdMenu.HubtelResponse | UssdMenu.NaloResponse| UssdMenu.ArkeselResponse): void;
 
     resolveRoute(route: string, callback: Function): void;
 
@@ -112,6 +112,23 @@ declare namespace UssdMenu {
         MSGTYPE: true | false;
         USERDATA: string;
         NETWORK: 'Tigo' | 'Airtel' | 'MTN' | 'Vodafone' | 'Glo';
+    }
+
+    interface ArkeselResponse {
+        sessionID: string,
+        userID: string,
+        msisdn: string,
+        continueSession: true | false;
+        message: string;
+    }
+
+    interface ArkeselArgs {
+        sessionID: string,
+        userID: string
+        newSession: true | false;
+        msisdn: string;
+        userData: string;
+        network: 'Tigo' | 'Airtel' | 'AirtelTigo' | 'MTN' | 'Vodafone' | 'Glo';
     }
 
     type UssdMenuProvider = 'africasTalking' | 'hubtel' | 'emergent';

@@ -5,11 +5,11 @@
 
 
 Easily compose USSD menus in Node.js, compatible with
-[Africastalking API](https://africastalking.com), [Hubtel API](https://developers.hubtel.com/reference#ussd), [Emergent API](https://interpayafrica.com) and [Nalo API](https://www.nalosolutions.com/ussds-short-codes).
+[Africastalking API](https://africastalking.com), [Hubtel API](https://developers.hubtel.com/reference#ussd), [Emergent API](https://interpayafrica.com), [Nalo API](https://www.nalosolutions.com/ussds-short-codes) and [Arkesel API](https://arkesel.com/ussd).
 
 
 ## Maintenence 
-You Can Donate to support Plugin Maintenance using this link [Donate](https://paystack.com/pay/ussd-builder).
+You can Donate to support plugin Maintenance using this link [Donate](https://paystack.com/pay/ussd-builder).
 
 
 ## Installation
@@ -54,7 +54,7 @@ menu.startState({
 menu.state('showBalance', {
     run: () => {
         // fetch balance
-        fetchBalance(menu.args.phoneNumber).then(function(bal){
+        fetchBalance(menu.args.phoneNumber).then((bal)=>{
             // use menu.end() to send response and terminate session
             menu.end('Your balance is GHC ' + bal);
         });
@@ -76,7 +76,7 @@ menu.state('buyAirtime.amount', {
     run: () => {
         // use menu.val to access user input value
         var amount = Number(menu.val);
-        buyAirtime(menu.args.phoneNumber, amount).then(function(res){
+        buyAirtime(menu.args.phoneNumber, amount).then((res)=>{
             menu.end('Airtime bought successfully.');
         });
     }
@@ -84,7 +84,7 @@ menu.state('buyAirtime.amount', {
 
 // Registering USSD handler with Express
 
-app.post('/ussd', function(req, res){
+app.post('/ussd', (req, res)=>{
     menu.run(req.body, ussdResult => {
         res.send(ussdResult);
     });
@@ -675,6 +675,36 @@ For more detail visit documentation at https://documenter.getpostman.com/view/37
 
 ```javascript
 menu = new UssdMenu({ provider: 'nalo' });
+// Define Session Config & States normally
+menu.sessionConfig({ ... });
+menu.state('thisState', {
+    run: function(){
+        ...
+    });
+});
+
+app.post('/ussdNalo', (req, res) => {
+    menu.run(req.body, resMsg => {
+        // resMsg would return an object like:
+        // { "MSGTYPE": "true", "MSG": "Some Response",  }
+        res.json(resMsg);
+    });
+})
+```
+
+
+## Arkesel Support
+
+As of version 1.1.7, ussd-builder has added support for Nalo Solutions USSD API by providing the `provider` option when creating the **UssdMenu** object. There are no changes to the way states are defined, and the HTTP request parameters sent by Nalo are mapped as usual to `menu.args`, and the result of `menu.run` is mapped to the HTTP response object expected by Nalo (`menu.con` returns a MSGTYPE: true & `menu.end` returns a MSGTYPE: false). The additional HTTP request parameters like ClientState, and Sequence are not used.
+
+Arkesel USSD API only sends the most recent response message, rather than the full route string. The library handles that using the Sessions feature, which requires that a SessionConfig is defined in order to store the session's full route. This is stored in the key `route`, so if you use that key in your application it could cause issues.
+
+For more detail visit documentation at https://documenter.getpostman.com/view/3709759/SzYaVxgQ?version=latest
+
+### Example
+
+```javascript
+menu = new UssdMenu({ provider: 'arkesel' });
 // Define Session Config & States normally
 menu.sessionConfig({ ... });
 menu.state('thisState', {
