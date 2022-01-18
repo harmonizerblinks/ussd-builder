@@ -38,16 +38,16 @@ declare class UssdMenu extends EventEmitter {
 
     end(text: string): void;
 
-    getRoute(args: UssdMenu.UssdGatewayArgs | UssdMenu.HubtelArgs): Promise<string>;
+    getRoute(args: UssdMenu.UssdGatewayArgs | UssdMenu.HubtelArgs | UssdMenu.NaloArgs): Promise<string>;
 
     go(state: string): void;
 
     goStart(): void;
 
-    mapArgs(args: UssdMenu.UssdGatewayArgs | UssdMenu.HubtelArgs): UssdMenu.UssdGatewayArgs;
+    mapArgs(args: UssdMenu.UssdGatewayArgs | UssdMenu.HubtelArgs | UssdMenu.NaloArgs): UssdMenu.UssdGatewayArgs;
 
 
-    onResult?(result: string | UssdMenu.HubtelResponse): void;
+    onResult?(result: string | UssdMenu.HubtelResponse | UssdMenu.NaloResponse): void;
 
     resolveRoute(route: string, callback: Function): void;
 
@@ -99,7 +99,22 @@ declare namespace UssdMenu {
         ClientState?: any;
     }
 
-    type UssdMenuProvider = 'africasTalking' | 'hubtel';
+    interface NaloResponse {
+        USERID: string,
+        MSISDN: string,
+        MSGTYPE: true | false;
+        MSG: string;
+    }
+
+    interface NaloArgs {
+        USERID: string
+        MSISDN: string;
+        MSGTYPE: true | false;
+        USERDATA: string;
+        NETWORK: 'Tigo' | 'Airtel' | 'MTN' | 'Vodafone' | 'Glo';
+    }
+
+    type UssdMenuProvider = 'africasTalking' | 'hubtel' | 'emergent';
     interface UssdMenuOptions {
         provider?: UssdMenuProvider;
     }

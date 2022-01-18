@@ -5,7 +5,12 @@
 
 
 Easily compose USSD menus in Node.js, compatible with
-[Africastalking API](https://africastalking.com) or [Hubtel API](https://developers.hubtel.com/reference#ussd)/ or [Emergent](https://simussd.interpayafrica.com).
+[Africastalking API](https://africastalking.com), [Hubtel API](https://developers.hubtel.com/reference#ussd), [Emergent API](https://interpayafrica.com) and [Nalo API](https://www.nalosolutions.com/ussds-short-codes).
+
+
+## Maintenence 
+You Can Donate to support Plugin Maintenance using this link [Donate](https://paystack.com/pay/ussd-builder).
+
 
 ## Installation
 
@@ -51,7 +56,7 @@ menu.state('showBalance', {
         // fetch balance
         fetchBalance(menu.args.phoneNumber).then(function(bal){
             // use menu.end() to send response and terminate session
-            menu.end('Your balance is KES ' + bal);
+            menu.end('Your balance is GHC ' + bal);
         });
     }
 });
@@ -626,3 +631,67 @@ app.post('/ussdHubtel', (req, res) => {
     });
 })
 ```
+
+
+## Emergent Support
+
+As of version 1.1.1, ussd-builder has added support for Emergent's USSD API by providing the `provider` option when creating the **UssdMenu** object. There are no changes to the way states are defined, and the HTTP request parameters sent by Emergent are mapped as usual to `menu.args`, and the result of `menu.run` is mapped to the HTTP response object expected by Emergent (`menu.con` returns a _Type: Respons & `menu.end` returns a Type: Release). The additional HTTP request parameters like ClientState, and Sequence are not used.
+
+Emergent is same as Hubtel, the service only sends the most recent response message, rather than the full route string. The library handles that using the Sessions feature, which requires that a SessionConfig is defined in order to store the session's full route. This is stored in the key `route`, so if you use that key in your application it could cause issues.
+
+[Emergent Ussd Simulator](https://simussd.interpayafrica.com)
+
+### Example
+
+```javascript
+menu = new UssdMenu({ provider: 'emergent' });
+// Define Session Config & States normally
+menu.sessionConfig({ ... });
+menu.state('thisState', {
+    run: function(){
+        ...
+    });
+});
+
+app.post('/ussdEmergent', (req, res) => {
+    menu.run(req.body, resMsg => {
+        // resMsg would return an object like:
+        // { "Type": "Response", "Message": "Some Response",  }
+        res.json(resMsg);
+    });
+})
+```
+
+
+## Nalo Support
+
+As of version 1.1.2, ussd-builder has added support for Nalo Solutions USSD API by providing the `provider` option when creating the **UssdMenu** object. There are no changes to the way states are defined, and the HTTP request parameters sent by Nalo are mapped as usual to `menu.args`, and the result of `menu.run` is mapped to the HTTP response object expected by Nalo (`menu.con` returns a MSGTYPE: true & `menu.end` returns a MSGTYPE: false). The additional HTTP request parameters like ClientState, and Sequence are not used.
+
+Nalo USSD API only sends the most recent response message, rather than the full route string. The library handles that using the Sessions feature, which requires that a SessionConfig is defined in order to store the session's full route. This is stored in the key `route`, so if you use that key in your application it could cause issues.
+
+For more detail visit documentation at https://documenter.getpostman.com/view/3709759/SzYaVxgQ?version=latest
+
+### Example
+
+```javascript
+menu = new UssdMenu({ provider: 'nalo' });
+// Define Session Config & States normally
+menu.sessionConfig({ ... });
+menu.state('thisState', {
+    run: function(){
+        ...
+    });
+});
+
+app.post('/ussdNalo', (req, res) => {
+    menu.run(req.body, resMsg => {
+        // resMsg would return an object like:
+        // { "MSGTYPE": "true", "MSG": "Some Response",  }
+        res.json(resMsg);
+    });
+})
+```
+
+
+### Donate to Support Pulgin
+You Can Donate to support Plugin Maintenance using this link [Donate](https://paystack.com/pay/ussd-builder).

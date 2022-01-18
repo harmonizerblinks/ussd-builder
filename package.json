@@ -1,7 +1,7 @@
 {
   "name": "ussd-builder",
-  "version": "1.1.1",
-  "description": "Easily compose USSD menus using states, compatible with Africastalking, Hubtel and Interpay Ussd API",
+  "version": "1.1.6",
+  "description": "Easily compose USSD menus using states, compatible with Africastalking, Hubtel, Emergent & Nalo Ussd API",
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
@@ -21,7 +21,9 @@
     "hubtel",
     "emergent",
     "emergent ussd",
-    "interpay"
+    "interpay",
+    "nalo",
+    "arkesel"
   ],
   "author": "Harmony Alabi <harmonizerblinks@gmail.com>",
   "license": "MIT",
