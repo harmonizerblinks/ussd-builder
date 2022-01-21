@@ -695,11 +695,11 @@ app.post('/ussdNalo', (req, res) => {
 
 ## Arkesel Support
 
-As of version 1.1.7, ussd-builder has added support for Nalo Solutions USSD API by providing the `provider` option when creating the **UssdMenu** object. There are no changes to the way states are defined, and the HTTP request parameters sent by Nalo are mapped as usual to `menu.args`, and the result of `menu.run` is mapped to the HTTP response object expected by Nalo (`menu.con` returns a MSGTYPE: true & `menu.end` returns a MSGTYPE: false). The additional HTTP request parameters like ClientState, and Sequence are not used.
+As of version 1.1.7, ussd-builder has added support for Arkesel USSD API by providing the `provider` option when creating the **UssdMenu** object. There are no changes to the way states are defined, and the HTTP request parameters sent by Nalo are mapped as usual to `menu.args`, and the result of `menu.run` is mapped to the HTTP response object expected by Nalo (`menu.con` returns a continueSession: true & `menu.end` returns a continueSession: false). The additional HTTP request parameters like ClientState, and Sequence are not used.
 
 Arkesel USSD API only sends the most recent response message, rather than the full route string. The library handles that using the Sessions feature, which requires that a SessionConfig is defined in order to store the session's full route. This is stored in the key `route`, so if you use that key in your application it could cause issues.
 
-For more detail visit documentation at https://documenter.getpostman.com/view/3709759/SzYaVxgQ?version=latest
+For more detail visit documentation at https://developers.arkesel.com/#tag/Overview
 
 ### Example
 
@@ -713,10 +713,10 @@ menu.state('thisState', {
     });
 });
 
-app.post('/ussdNalo', (req, res) => {
+app.post('/ussdArkesel', (req, res) => {
     menu.run(req.body, resMsg => {
         // resMsg would return an object like:
-        // { "MSGTYPE": "true", "MSG": "Some Response",  }
+        // { "continueSession": "true", "message": "Some Response",  }
         res.json(resMsg);
     });
 })

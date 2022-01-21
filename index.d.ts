@@ -38,16 +38,16 @@ declare class UssdMenu extends EventEmitter {
 
     end(text: string): void;
 
-    getRoute(args: UssdMenu.UssdGatewayArgs | UssdMenu.HubtelArgs | UssdMenu.NaloArgs | UssdMenu.ArkeselArgs): Promise<string>;
+    getRoute(args: UssdMenu.UssdGatewayArgs | UssdMenu.HubtelArgs | UssdMenu.NaloArgs | UssdMenu.ArkeselArgs | UssdMenu.SouthPawslArgs): Promise<string>;
 
     go(state: string): void;
 
     goStart(): void;
 
-    mapArgs(args: UssdMenu.UssdGatewayArgs | UssdMenu.HubtelArgs | UssdMenu.NaloArgs | UssdMenu.ArkeselArgs): UssdMenu.UssdGatewayArgs;
+    mapArgs(args: UssdMenu.UssdGatewayArgs | UssdMenu.HubtelArgs | UssdMenu.NaloArgs | UssdMenu.ArkeselArgs | UssdMenu.SouthPawslResponse): UssdMenu.UssdGatewayArgs;
 
 
-    onResult?(result: string | UssdMenu.HubtelResponse | UssdMenu.NaloResponse| UssdMenu.ArkeselResponse): void;
+    onResult?(result: string | UssdMenu.HubtelResponse | UssdMenu.NaloResponse| UssdMenu.ArkeselResponse | UssdMenu.SouthPawslResponse): void;
 
     resolveRoute(route: string, callback: Function): void;
 
@@ -79,6 +79,7 @@ declare namespace UssdMenu {
     interface UssdGatewayArgs {
         text: string;
         phoneNumber: string;
+        // operator: string;
         sessionId: string;
         serviceCode: string;
     }
@@ -115,19 +116,40 @@ declare namespace UssdMenu {
     }
 
     interface ArkeselResponse {
-        sessionID: string,
-        userID: string,
-        msisdn: string,
+        sessionID: string;
+        userID: string;
+        msisdn: string;
         continueSession: true | false;
         message: string;
     }
 
     interface ArkeselArgs {
-        sessionID: string,
-        userID: string
+        sessionID: string;
+        userID: string;
         newSession: true | false;
         msisdn: string;
         userData: string;
+        network: 'Tigo' | 'Airtel' | 'AirtelTigo' | 'MTN' | 'Vodafone' | 'Glo';
+    }
+
+    interface SouthPawslResponse {
+        menuId: string,
+        ussdString: string,
+        option: string,
+        state: true | false;
+        ussdParameters: any[];
+        message: string;
+    }
+
+    interface SouthPawslArgs {
+        sessionId: string,
+        menuId: string,
+        ussdState: string,
+        ussdString: string,
+        ussdParameters: any[];
+        possibleAnswers: string;
+        msisdn: string;
+        inputOption: string;
         network: 'Tigo' | 'Airtel' | 'AirtelTigo' | 'MTN' | 'Vodafone' | 'Glo';
     }
 
