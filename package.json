@@ -1,7 +1,7 @@
 {
   "name": "ussd-builder",
-  "version": "1.1.12",
-  "description": "Easily compose USSD menus using states, compatible with Africastalking, Hubtel, Emergent & Nalo Ussd API",
+  "version": "1.2.0",
+  "description": "Easily compose USSD menus using states, compatible with Africastalking, Hubtel, Emergent, Arkesel, South & Nalo Ussd API",
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
@@ -14,7 +14,9 @@
     "url": "https://github.com/harmonizerblinks/ussd-builder"
   },
   "keywords": [
-    "ussd-menu-builder",
+    "ussd-builder",
+    "ussd-provider",
+    "ussd-gateway",
     "ussd",
     "africastalking",
     "ussd-menu",
@@ -23,7 +25,8 @@
     "emergent ussd",
     "interpay",
     "nalo",
-    "arkesel"
+    "arkesel",
+    "southpawsl"
   ],
   "author": "Harmony Alabi <harmonizerblinks@gmail.com>",
   "license": "MIT",

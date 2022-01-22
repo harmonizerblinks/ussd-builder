@@ -5,7 +5,7 @@
 
 
 Easily compose USSD menus in Node.js, compatible with
-[Africastalking API](https://africastalking.com), [Hubtel API](https://developers.hubtel.com/reference#ussd), [Emergent API](https://interpayafrica.com), [Nalo API](https://www.nalosolutions.com/ussds-short-codes) and [Arkesel API](https://arkesel.com/ussd).
+[Africastalking API](https://africastalking.com), [Hubtel API](https://developers.hubtel.com/reference#ussd), [Emergent API](https://interpayafrica.com), [South pawal API](https://southpawsl.com), [Nalo API](https://www.nalosolutions.com/ussds-short-codes) and [Arkesel API](https://arkesel.com/ussd).
 
 
 ## Maintenence 
@@ -663,6 +663,35 @@ app.post('/ussdEmergent', (req, res) => {
 ```
 
 
+## SouthPawsl Support
+
+As of version 1.2.0, ussd-builder has added support for SouthPawsl's USSD API by providing the `provider` option when creating the **UssdMenu** object. There are no changes to the way states are defined, and the HTTP request parameters sent by SouthPawsl are mapped as usual to `menu.args`, and the result of `menu.run` is mapped to the HTTP response object expected by SouthPawsl (`menu.con` returns a State: CONTINUE & `menu.end` returns a State: END). The additional HTTP request parameters like ClientState, and Sequence are not used.
+
+The key difference with SouthPawsl is that the service only sends the most recent response message, rather than the full route string. The library handles that using the Sessions feature, which requires that a SessionConfig is defined in order to store the session's full route. This is stored in the key `route`, so if you use that key in your application it could cause issues.
+
+
+### Example
+
+```javascript
+menu = new UssdMenu({ provider: 'southpawsl' });
+// Define Session Config & States normally
+menu.sessionConfig({ ... });
+menu.state('thisState', {
+    run: function(){
+        ...
+    });
+});
+
+app.post('/ussdSouthpawsl', (req, res) => {
+    menu.run(req.body, resMsg => {
+        // resMsg would return an object like:
+        // { "state": "CONTINUE", "message": "Some Response" }
+        res.json(resMsg);
+    });
+})
+```
+
+
 ## Nalo Support
 
 As of version 1.1.2, ussd-builder has added support for Nalo Solutions USSD API by providing the `provider` option when creating the **UssdMenu** object. There are no changes to the way states are defined, and the HTTP request parameters sent by Nalo are mapped as usual to `menu.args`, and the result of `menu.run` is mapped to the HTTP response object expected by Nalo (`menu.con` returns a MSGTYPE: true & `menu.end` returns a MSGTYPE: false). The additional HTTP request parameters like ClientState, and Sequence are not used.
@@ -695,7 +724,7 @@ app.post('/ussdNalo', (req, res) => {
 
 ## Arkesel Support
 
-As of version 1.1.7, ussd-builder has added support for Arkesel USSD API by providing the `provider` option when creating the **UssdMenu** object. There are no changes to the way states are defined, and the HTTP request parameters sent by Nalo are mapped as usual to `menu.args`, and the result of `menu.run` is mapped to the HTTP response object expected by Nalo (`menu.con` returns a continueSession: true & `menu.end` returns a continueSession: false). The additional HTTP request parameters like ClientState, and Sequence are not used.
+As of version 1.1.7, ussd-builder has added support for Arkesel USSD API by providing the `provider` option when creating the **UssdMenu** object. There are no changes to the way states are defined, and the HTTP request parameters sent by Arkesel are mapped as usual to `menu.args`, and the result of `menu.run` is mapped to the HTTP response object expected by Arkesel (`menu.con` returns a continueSession: true & `menu.end` returns a continueSession: false). The additional HTTP request parameters like ClientState, and Sequence are not used.
 
 Arkesel USSD API only sends the most recent response message, rather than the full route string. The library handles that using the Sessions feature, which requires that a SessionConfig is defined in order to store the session's full route. This is stored in the key `route`, so if you use that key in your application it could cause issues.
 
