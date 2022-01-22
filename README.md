@@ -5,7 +5,7 @@
 
 
 Easily compose USSD menus in Node.js, compatible with
-[Africastalking API](https://africastalking.com), [Hubtel API](https://developers.hubtel.com/reference#ussd), [Emergent API](https://interpayafrica.com), [South pawal API](https://southpawsl.com), [Nalo API](https://www.nalosolutions.com/ussds-short-codes) and [Arkesel API](https://arkesel.com/ussd).
+[Africastalking API](https://africastalking.com), [Hubtel API](https://developers.hubtel.com/reference#ussd), [Emergent API](https://interpayafrica.com), [South Pawsl API](https://southpawsl.com), [Nalo API](https://www.nalosolutions.com/ussds-short-codes) and [Arkesel API](https://arkesel.com/ussd).
 
 
 ## Maintenence 
