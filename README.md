@@ -10,7 +10,8 @@ Easily compose USSD menus in Node.js, compatible with
 
 ## Maintenence 
 You can Donate to support plugin Maintenance using this link [Donate](https://paystack.com/pay/ussd-builder).
-Sponsorship are Welcome.
+
+- For Sponsorship Kindly send me a contact me on [Linkedin](https://www.linkedin.com/in/harmony-alabi).
 
 
 ## Installation
