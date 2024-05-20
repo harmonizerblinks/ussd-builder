@@ -1,6 +1,6 @@
 {
   "name": "ussd-builder",
-  "version": "1.2.5",
+  "version": "1.3.1",
   "description": "Easily compose USSD menus using states, compatible with Africastalking, Hubtel, Emergent, Arkesel, SouthPawsl & Nalo Ussd API",
   "main": "index.js",
   "types": "index.d.ts",
