@@ -5,11 +5,11 @@
 
 
 Easily compose USSD menus in Node.js, compatible with
-[Africastalking API](https://africastalking.com), [Hubtel API](https://developers.hubtel.com/reference#ussd), [Emergent API](https://interpayafrica.com), [South Pawsl API](https://southpawsl.com), [Nalo API](https://www.nalosolutions.com/ussds-short-codes) and [Arkesel API](https://arkesel.com/ussd).
+[Africastalking API](https://africastalking.com), [Hubtel API](https://developers.hubtel.com/reference#ussd), [Emergent API](https://interpayafrica.com), [South Pawsl API](https://southpawsl.com), [Nalo API](https://www.nalosolutions.com/ussds-short-codes), [Arkesel API](https://arkesel.com/ussd) and [Beem API](https://docs.beem.africa/ussd/index.html).
 
 
 ## Maintenence 
-You can Donate to support plugin Maintenance using this link [Donate](https://paystack.com/pay/ussd-builder).
+<!-- You can Donate to support plugin Maintenance using this link [Donate](https://paystack.com/pay/ussd-builder). -->
 
 - For Sponsorship Kindly send me a contact me on [Linkedin](https://www.linkedin.com/in/harmony-alabi).
 
@@ -754,5 +754,43 @@ app.post('/ussdArkesel', (req, res) => {
 ```
 
 
-### Donate to Support Pulgin
-You Can Donate to support Plugin Maintenance using this link [Donate](https://paystack.com/pay/ussd-builder).
+## Beem Africa Support
+
+As of version 1.1.7, ussd-builder has added support for Beem USSD API by providing the `provider` option when creating the **UssdMenu** object. There are no changes to the way states are defined, and the HTTP request parameters sent by Beem are mapped as usual to `menu.args`, and the result of `menu.run` is mapped to the HTTP response object expected by Beem (`menu.con` returns a command: continue & `menu.end` returns a command: terminate). The additional HTTP request parameters like request_id, and Sequence are not used.
+
+Beem USSD API only sends the most recent response message, rather than the full route string. The library handles that using the Sessions feature, which requires that a SessionConfig is defined in order to store the session's full route. This is stored in the key `route`, so if you use that key in your application it could cause issues.
+
+For more detail visit documentation at https://docs.beem.africa/ussd/index.html
+
+### Example
+
+```javascript
+menu = new UssdMenu({ provider: 'beem' });
+// Define Session Config & States normally
+menu.sessionConfig({ ... });
+menu.state('thisState', {
+    run: function(){
+        ...
+    });
+});
+
+app.post('/ussdBeemAfrica', (req, res) => {
+    menu.run(req.body, resMsg => {
+        // resMsg would return an object like:
+        // {
+        //     "msisdn": "+233546467407",
+        //     "operator": "vodacom",
+        //     "command": "continue",
+        //     "payload": {
+        //         "request_id": 84939983,
+        //         "request": "Some Response"
+        //     }
+        // }
+        res.json(resMsg);
+    });
+})
+```
+
+
+<!-- ### Donate to Support Pulgin
+You Can Donate to support Plugin Maintenance using this link [Donate](https://paystack.com/pay/ussd-builder). -->
